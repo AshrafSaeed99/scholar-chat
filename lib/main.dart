@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scholar_chat/views/home_view.dart';
+import 'package:scholar_chat/views/log_in_view.dart';
+import 'package:scholar_chat/views/registeration_view.dart';
 
 void main() {
   runApp(const ScholarChat());
@@ -13,9 +14,10 @@ class ScholarChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: HomeView.routeName,
+      initialRoute: LogInView.routeName,
       routes: {
-        HomeView.routeName: (context) => const HomeView(),
+        LogInView.routeName: (context) => const LogInView(),
+        RegisterationView.routeName: (context) => const RegisterationView(),
       }
     );
   }
