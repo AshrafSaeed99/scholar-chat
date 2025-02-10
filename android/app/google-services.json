@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "249087729012",
+    "project_id": "chat-app-afad2",
+    "storage_bucket": "chat-app-afad2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:249087729012:android:ca4ca18e9cfa0f78402021",
+        "android_client_info": {
+          "package_name": "com.example.scholar_chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVJAQNNMpSraAfDF7t-7k31qCLwulcHjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
