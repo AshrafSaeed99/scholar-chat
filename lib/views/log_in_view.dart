@@ -5,9 +5,11 @@ import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field_widget.dart';
 
 class LogInView extends StatelessWidget {
+  String? email;
+  String? password;
   static const routeName = '/home';
 
-  const LogInView({super.key});
+   LogInView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +48,19 @@ class LogInView extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
-              const CustomTextFieldWidget(
+               CustomTextFieldWidget(
+                onChanged: (data) {
+                  email=data;
+                },
                 labelText: 'Email',
               ),
-              const SizedBox(
+               SizedBox(
                 height: 12.0,
               ),
-              const CustomTextFieldWidget(
+               CustomTextFieldWidget(
+                onChanged: (data) {
+                  password=data;
+                },
                 labelText: 'Password',
               ),
               const SizedBox(
