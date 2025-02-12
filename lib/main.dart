@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:scholar_chat/firebase_options.dart';
+import 'package:scholar_chat/views/chat_view.dart';
 import 'package:scholar_chat/views/log_in_view.dart';
 import 'package:scholar_chat/views/registeration_view.dart';
 
@@ -22,10 +23,11 @@ class ScholarChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: LogInView.routeName,
+        initialRoute:ChatView.routeName,
         routes: {
           LogInView.routeName: (context) => LogInView(),
           RegisterationView.routeName: (context) => RegisterationView(),
+      ChatView.routeName: (context) => ChatView(),
         });
   }
 }

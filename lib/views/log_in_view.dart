@@ -1,26 +1,43 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:scholar_chat/constant.dart';
+import 'package:scholar_chat/helper/show_snack_bar.dart';
+import 'package:scholar_chat/views/chat_view.dart';
 import 'package:scholar_chat/views/registeration_view.dart';
 import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field_widget.dart';
 
-class LogInView extends StatelessWidget {
-  String? email;
-  String? password;
+class LogInView extends StatefulWidget {
   static const routeName = '/home';
 
-   LogInView({super.key});
+  LogInView({
+    super.key,
+  });
+
+  @override
+  State<LogInView> createState() => _LogInViewState();
+}
+
+class _LogInViewState extends State<LogInView> {
+  String? email;
+  String? password;
+  bool isLoading = false;
+  GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kPrimaryColor,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-            children: [
+    return ModalProgressHUD(
+      inAsyncCall: isLoading,
+      child: Scaffold(
+        backgroundColor: kPrimaryColor,
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: formKey,
+            child: ListView(children: [
               Image.asset(
-                'assets/images/scholar.png',
+                kLogo,
                 height: 150,
               ),
               Row(
@@ -48,25 +65,52 @@ class LogInView extends StatelessWidget {
               const SizedBox(
                 height: 16.0,
               ),
-               CustomTextFieldWidget(
+              CustomTextFieldWidget(
                 onChanged: (data) {
-                  email=data;
+                  email = data;
                 },
                 labelText: 'Email',
               ),
-               SizedBox(
+              SizedBox(
                 height: 12.0,
               ),
-               CustomTextFieldWidget(
+              CustomTextFieldWidget(
                 onChanged: (data) {
-                  password=data;
+                  password = data;
                 },
                 labelText: 'Password',
               ),
               const SizedBox(
                 height: 16.0,
               ),
-              CustomButton(onPressed:() {}, btnText: 'Sign In'),
+              CustomButton(
+                onPressed: () async {
+                  if (formKey.currentState!.validate()) {
+                    try {
+                      setState(() {
+                        isLoading = true;                        
+                      });
+                      await loginUser();
+                        if (mounted) {
+                          Navigator.pushNamed(context, ChatView.routeName);
+                        }
+                    } on FirebaseAuthException catch (e) {
+                      if (mounted) {
+                        showSnackBar(context, e.message ?? e.toString());
+                      }
+                    } catch (e) {
+                      if (mounted) {
+                        showSnackBar(context, e.toString());
+                      }
+                    } finally {
+                      if (mounted) {
+                        setState(() => isLoading = false);
+                      }
+                    }
+                  }
+                },
+                btnText: 'Sign In',
+              ),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 const Text(
                   'Don\'t have an account?',
@@ -74,9 +118,9 @@ class LogInView extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pushNamed(context,RegisterationView.routeName);
+                    Navigator.pushNamed(context, RegisterationView.routeName);
                   },
-                  child:const Text(
+                  child: const Text(
                     'Sign Up',
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xffc7ede6)),
@@ -84,8 +128,14 @@ class LogInView extends StatelessWidget {
                 )
               ]),
             ]),
+          ),
+        ),
       ),
     );
   }
-}
 
+  Future<void> loginUser() async {
+    UserCredential user = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email!, password: password!);
+  }
+}
