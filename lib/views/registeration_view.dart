@@ -8,7 +8,7 @@ import 'package:scholar_chat/widgets/custom_button.dart';
 import 'package:scholar_chat/widgets/custom_text_field_widget.dart';
 
 class RegisterationView extends StatefulWidget {
-  RegisterationView({super.key});
+  const RegisterationView({super.key});
   static const routeName = '/registeration';
   @override
   State<RegisterationView> createState() => _RegisterationViewState();

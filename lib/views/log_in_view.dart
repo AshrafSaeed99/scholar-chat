@@ -11,7 +11,7 @@ import 'package:scholar_chat/widgets/custom_text_field_widget.dart';
 class LogInView extends StatefulWidget {
   static const routeName = '/home';
 
-  LogInView({
+  const LogInView({
     super.key,
   });
 
