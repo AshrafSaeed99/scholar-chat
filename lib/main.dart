@@ -6,7 +6,6 @@ import 'package:scholar_chat/views/log_in_view.dart';
 import 'package:scholar_chat/views/registeration_view.dart';
 
 void main() async {
-  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -23,11 +22,11 @@ class ScholarChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute:ChatView.routeName,
+        initialRoute: ChatView.routeName,
         routes: {
           LogInView.routeName: (context) => LogInView(),
           RegisterationView.routeName: (context) => RegisterationView(),
-      ChatView.routeName: (context) => ChatView(),
+          ChatView.routeName: (context) => ChatView(),
         });
   }
 }
